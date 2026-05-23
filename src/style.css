@@ -1,0 +1,354 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    background: linear-gradient(145deg, #f0f4ff 0%, #e6edf7 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', 'Roboto', 'PingFang SC', 'Microsoft YaHei', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    padding: 20px;
+}
+
+/* 主卡片容器 */
+.voice-input-method {
+    max-width: 900px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(0px);
+    border-radius: 48px;
+    box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+    overflow: hidden;
+    padding: 28px 32px 40px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* 头部产品标识 */
+.product-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.product-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #1e2b6e, #2b3b8c);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    letter-spacing: -0.3px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.product-header h1::before {
+    content: "🎙️";
+    font-size: 2rem;
+    background: none;
+    -webkit-background-clip: unset;
+    color: #2c3e8f;
+}
+
+.sub {
+    color: #5b6e8c;
+    margin-top: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-top: 1px solid #e2e8f0;
+    display: inline-block;
+    padding-top: 8px;
+}
+
+/* 主要文本编辑区 (模拟输入法上屏区域) */
+.text-editor {
+    margin-bottom: 30px;
+    background: #fefefe;
+    border-radius: 28px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05), inset 0 1px 0 #ffffff;
+    border: 1px solid #eef2f8;
+    transition: box-shadow 0.2s;
+}
+
+.text-editor:focus-within {
+    box-shadow: 0 8px 20px rgba(46, 91, 255, 0.12);
+    border-color: #b9ceff;
+}
+
+textarea {
+    width: 100%;
+    min-height: 220px;
+    padding: 20px 24px;
+    font-size: 1.1rem;
+    line-height: 1.55;
+    font-family: inherit;
+    border: none;
+    background: transparent;
+    resize: vertical;
+    outline: none;
+    color: #1a2a3f;
+    font-weight: 450;
+    letter-spacing: 0.2px;
+}
+
+textarea::placeholder {
+    color: #abb7cf;
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+/* 工具栏按钮组 */
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    background: #f1f5f9;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 60px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #2c3e66;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    backdrop-filter: blur(2px);
+}
+
+.btn-icon {
+    font-size: 1.2rem;
+}
+
+.btn:hover {
+    background: #e6edf5;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn-primary {
+    background: #2b3b8c;
+    color: white;
+    box-shadow: 0 4px 12px rgba(43, 59, 140, 0.25);
+}
+
+.btn-primary:hover {
+    background: #1f2e73;
+    box-shadow: 0 6px 14px rgba(31, 46, 115, 0.3);
+}
+
+.btn-danger {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.btn-danger:hover {
+    background: #ffd6d6;
+}
+
+/* 麦克风核心控件 */
+.voice-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0 20px;
+    background: #fafcff;
+    border-radius: 60px;
+    padding: 16px 20px;
+    border: 1px solid #e9eff6;
+}
+
+.mic-button {
+    background: linear-gradient(145deg, #ffffff, #f3f9ff);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    transition: all 0.15s linear;
+    border: 1px solid #cfdef5;
+}
+
+.mic-button:active {
+    transform: scale(0.96);
+}
+
+.mic-icon {
+    font-size: 52px;
+    transition: transform 0.2s;
+}
+
+/* 录音中动态 */
+.listening-active .mic-button {
+    background: radial-gradient(circle at 30% 20%, #ffd966, #ffaa33);
+    box-shadow: 0 0 0 8px rgba(255, 170, 51, 0.3);
+    border-color: #ffb347;
+}
+
+.listening-active .mic-icon {
+    animation: pulseMic 1.2s infinite;
+    color: #a34100;
+}
+
+@keyframes pulseMic {
+    0% {
+        transform: scale(1);
+        text-shadow: 0 0 0 rgba(255, 100, 0, 0);
+    }
+
+    50% {
+        transform: scale(1.08);
+        text-shadow: 0 0 5px #ff9f4a;
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.status-badge {
+    margin-top: 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    background: #eef3fc;
+    padding: 6px 18px;
+    border-radius: 40px;
+    color: #2c5282;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-led {
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    background: #6b7280;
+    display: inline-block;
+}
+
+.listening-active .status-led {
+    background: #f97316;
+    box-shadow: 0 0 6px #f97316;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+/* 实时中间识别区 - 极大提升易用性 */
+.interim-box {
+    background: #f0f4fa;
+    border-radius: 24px;
+    padding: 14px 20px;
+    margin: 16px 0 8px;
+    font-size: 0.95rem;
+    color: #2d3e5f;
+    border-left: 4px solid #3b6eff;
+}
+
+.interim-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: #5b6e9c;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.interim-text {
+    word-break: break-word;
+    font-weight: 500;
+    min-height: 2.4rem;
+    color: #1f2a48;
+}
+
+.interim-text:empty::before {
+    content: "点击🎙️开始说话，实时显示识别中内容...";
+    color: #8a99b9;
+    font-weight: normal;
+}
+
+.info-note {
+    text-align: center;
+    font-size: 0.7rem;
+    color: #8596b5;
+    margin-top: 25px;
+    border-top: 1px solid #eef2f8;
+    padding-top: 18px;
+}
+
+.compatibility-warning {
+    background: #fff7e5;
+    border-radius: 20px;
+    padding: 10px 16px;
+    margin-top: 16px;
+    font-size: 0.8rem;
+    color: #b45f06;
+    text-align: center;
+}
+
+@media (max-width: 550px) {
+    .voice-input-method {
+        padding: 20px 20px 30px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+    }
+
+    textarea {
+        min-height: 170px;
+        font-size: 1rem;
+    }
+
+    .mic-button {
+        width: 80px;
+        height: 80px;
+    }
+
+    .mic-icon {
+        font-size: 42px;
+    }
+}

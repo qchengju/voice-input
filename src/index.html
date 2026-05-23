@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>智能语音输入法 - 说话即输入，效率倍增</title>
+    <link rel="stylesheet" href="style.css">
+    </link>
+</head>
+
+<body>
+    <div class="voice-input-method" id="app">
+        <div class="product-header">
+            <h1>智能语音输入法</h1>
+            <div class="sub">说话即文字 · 连续听写 · 专注高效</div>
+        </div>
+
+        <!-- 文本域：模拟输入法的上屏区域，用户可直接编辑 -->
+        <div class="text-editor">
+            <textarea id="mainTextarea" placeholder="点击下方麦克风开始语音输入，识别文字将自动添加到此处，您也可以手动修改或复制内容。轻松提高输入效率！"></textarea>
+        </div>
+
+        <!-- 工具栏：复制/清空/辅助功能 -->
+        <div class="toolbar">
+            <div class="action-buttons">
+                <button class="btn" id="copyBtn" title="复制全部文本">📋 复制文本</button>
+                <button class="btn btn-danger" id="clearBtn" title="清空文本框">🗑️ 清空</button>
+                <button class="btn" id="insertSampleBtn" title="插入示例文本">📄 示例</button>
+            </div>
+            <div class="action-buttons">
+                <span style="font-size: 0.7rem; color:#6c7fa0;">⚡ 零成本 · 隐私本地化</span>
+            </div>
+        </div>
+
+        <!-- 核心语音交互区 -->
+        <div class="voice-zone" id="voiceZone">
+            <div class="mic-button" id="micBtn">
+                <div class="mic-icon">🎤</div>
+            </div>
+            <div class="status-badge" id="statusBadge">
+                <span class="status-led"></span>
+                <span id="statusText">空闲，点击麦克风开始</span>
+            </div>
+        </div>
+
+        <!-- 实时中间识别结果 (提升准确度感知，用户可看到正在识别的临时语句) -->
+        <div class="interim-box">
+            <div class="interim-label">
+                <span>✨ 实时识别流</span>
+                <span style="font-size:10px;">(中间结果动态更新)</span>
+            </div>
+            <div class="interim-text" id="interimText"></div>
+        </div>
+
+        <div class="info-note">
+            💡 提示：基于浏览器Web Speech API，支持普通话/中英文混合，<strong>连续听写模式</strong> – 无需反复点击，自动追加识别结果。<br>
+            ✅ 准确度平衡：使用系统级语音引擎，零成本；识别后支持手动校正，易用性优先。建议使用Chrome/Edge/ Safari 获得最佳体验。
+        </div>
+        <div id="compatWarning" class="compatibility-warning" style="display: none;"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
