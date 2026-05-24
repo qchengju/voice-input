@@ -83,10 +83,13 @@ def create_app():
             return jsonify({'error': '缺少 audio_path 参数', 'success': False}), 400
 
         audio_path = data['audio_path']
+        lang = data.get('lang', 'zh')
+        if lang not in ('zh', 'en'):
+            lang = 'zh'
         if not os.path.exists(audio_path):
             return jsonify({'error': f'文件不存在: {audio_path}', 'success': False}), 400
 
-        log.info("转写: %s", audio_path)
+        log.info("转写 [lang=%s]: %s", lang, audio_path)
 
         try:
             pcm_path = convert_to_pcm(audio_path)
@@ -97,32 +100,22 @@ def create_app():
             return jsonify({'error': 'ffmpeg 转换超时', 'success': False}), 500
 
         try:
-            best_text = ''
-            best_lang = 'zh'
-            best_score = -1.0
+            if lang == 'zh':
+                if not cn_model:
+                    return jsonify({'error': '中文模型未安装，请运行 start.sh 下载', 'success': False}), 503
+                model = cn_model
+            else:
+                if not en_model:
+                    return jsonify({'error': '英文模型未安装，请运行 start.sh 下载', 'success': False}), 503
+                model = en_model
 
-            if cn_model:
-                text, conf = transcribe_with_model(pcm_path, cn_model)
-                score = len(text) * (conf if conf > 0 else 0.3)
-                log.info("中文识别: text=%r score=%.3f", text, score)
-                if score > best_score:
-                    best_score = score
-                    best_text = text
-                    best_lang = 'zh'
+            text, conf = transcribe_with_model(pcm_path, model)
+            log.info("识别结果 [%s]: %r (conf=%.3f)", lang, text, conf)
 
-            if en_model:
-                text, conf = transcribe_with_model(pcm_path, en_model)
-                score = len(text) * (conf if conf > 0 else 0.3)
-                log.info("英文识别: text=%r score=%.3f", text, score)
-                if score > best_score:
-                    best_text = text
-                    best_lang = 'en'
-
-            log.info("最终结果 [%s]: %r", best_lang, best_text)
             return jsonify({
-                'text': best_text,
+                'text': text,
                 'success': True,
-                'lang': best_lang,
+                'lang': lang,
             })
         except Exception as e:
             log.exception("识别失败")

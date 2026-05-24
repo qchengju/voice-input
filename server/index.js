@@ -17,11 +17,11 @@ app.use(express.json())
 
 const TRANSCRIBE_SERVER = 'http://127.0.0.1:9002'
 
-async function runTranscribe(audioPath) {
+async function runTranscribe(audioPath, lang) {
     const response = await fetch(`${TRANSCRIBE_SERVER}/transcribe`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ audio_path: audioPath }),
+        body: JSON.stringify({ audio_path: audioPath, lang: lang || 'zh' }),
         signal: AbortSignal.timeout(60000),
     })
     if (!response.ok) {
@@ -46,7 +46,7 @@ app.post('/api/transcribe', upload.single('audio'), async (req, res) => {
         await writeFile(tmpFile, req.file.buffer)
 
         try {
-            const result = await runTranscribe(tmpFile)
+            const result = await runTranscribe(tmpFile, req.body.lang)
 
             if (result.error) {
                 return res.status(500).json({ error: result.error, success: false })
@@ -55,6 +55,7 @@ app.post('/api/transcribe', upload.single('audio'), async (req, res) => {
             res.json({
                 text: result.text || '',
                 success: true,
+                lang: result.lang || 'auto',
             })
         } finally {
             await unlink(tmpFile).catch(() => {})

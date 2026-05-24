@@ -15,6 +15,8 @@ const retryTranscribeBtn = document.querySelector('#retryTranscribeBtn')
 const transcribeProgress = document.querySelector('#transcribeProgress')
 const progressBarFill = document.querySelector('#progressBarFill')
 const progressLabel = document.querySelector('#progressLabel')
+const langSelector = document.querySelector('#langSelector')
+const langOptions = document.querySelectorAll('.lang-option')
 
 export default {
     textarea, copyBtn, clearBtn, insertSampleBtn,
@@ -22,4 +24,5 @@ export default {
     voiceZone, statusTextSpan, interimTextDiv,
     backendDot, backendLabel, recordingTimer,
     retryTranscribeBtn, transcribeProgress, progressBarFill, progressLabel,
+    langSelector, langOptions,
 }

@@ -7,6 +7,7 @@ const {
     voiceZone, statusTextSpan, interimTextDiv,
     backendDot, backendLabel, recordingTimer,
     retryTranscribeBtn, transcribeProgress, progressBarFill, progressLabel,
+    langSelector, langOptions,
 } = doms
 
 const API_BASE = 'http://localhost:9001'
@@ -22,6 +23,7 @@ let recordingStartTime = null
 let timerInterval = null
 let uploadAbortController = null
 let lastRecordedBlob = null
+let currentLang = 'zh'
 
 // ---------- 后端健康检查 ----------
 async function checkBackendHealth() {
@@ -146,6 +148,7 @@ async function uploadAndTranscribe(blob) {
 
     const formData = new FormData()
     formData.append('audio', blob, 'recording.webm')
+    formData.append('lang', currentLang)
 
     try {
         updateProgress('正在上传音频...', 30)
@@ -161,9 +164,10 @@ async function uploadAndTranscribe(blob) {
 
         if (data.success) {
             updateProgress('转写完成', 100)
+            const langLabel = data.lang === 'en' ? '[EN]' : data.lang === 'zh' ? '[中文]' : ''
             if (data.text) {
                 appendFinalTextToInput(data.text)
-                setStatus('✅ 转写完成')
+                setStatus(`✅ 转写完成 ${langLabel}`)
             } else {
                 setStatus('⚠️ 转写完成，未识别到语音内容')
             }
@@ -292,6 +296,15 @@ function handleDownloadAudio() {
     setTimeout(() => URL.revokeObjectURL(url), 1000)
 }
 
+function onLangChange(lang) {
+    currentLang = lang
+    langOptions.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang)
+    })
+    const tips = { zh: '空闲，点击录音按钮开始', en: 'Idle · Click record to start' }
+    if (!isRecording) setStatus(tips[lang] || '')
+}
+
 // ---------- 事件绑定 ----------
 recordBtn.addEventListener('click', onRecordToggle)
 copyBtn.addEventListener('click', handleCopy)
@@ -299,6 +312,9 @@ clearBtn.addEventListener('click', handleClear)
 insertSampleBtn.addEventListener('click', handleInsertSample)
 downloadAudioBtn.addEventListener('click', handleDownloadAudio)
 retryTranscribeBtn.addEventListener('click', retryTranscription)
+langOptions.forEach(btn => {
+    btn.addEventListener('click', () => onLangChange(btn.dataset.lang))
+})
 
 checkBackendHealth()
 setInterval(checkBackendHealth, 30000)

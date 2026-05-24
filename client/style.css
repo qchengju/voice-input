@@ -297,6 +297,36 @@ textarea::placeholder {
     background: #ef4444;
 }
 
+.lang-selector {
+    display: inline-flex;
+    background: #f1f5f9;
+    border-radius: 60px;
+    padding: 3px;
+    gap: 2px;
+}
+
+.lang-option {
+    background: transparent;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 60px;
+    font-weight: 600;
+    font-size: 0.78rem;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.lang-option.active {
+    background: #ffffff;
+    color: #2b3b8c;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.lang-option:hover:not(.active) {
+    color: #334155;
+}
+
 /* 录音计时器 */
 .recording-timer {
     margin-top: 10px;
