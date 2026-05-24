@@ -8,7 +8,7 @@ const {
     retryTranscribeBtn, transcribeProgress, progressBarFill, progressLabel,
 } = doms
 
-const API_BASE = 'http://localhost:3001'
+const API_BASE = 'http://localhost:9001'
 
 // ---------- 全局状态 ----------
 let recognition = null

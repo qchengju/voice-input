@@ -3,7 +3,7 @@ set -e
 
 ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SERVER_DIR="$ROOT_DIR/server"
-FRONTEND_DIR="$ROOT_DIR/src"
+FRONTEND_DIR="$ROOT_DIR/client"
 MODEL_DIR="$SERVER_DIR/models/vosk-model-small-cn-0.22"
 MODEL_URL="https://alphacephei.com/vosk/models/vosk-model-small-cn-0.22.zip"
 FE_PORT=9000
