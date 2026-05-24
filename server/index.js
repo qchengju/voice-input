@@ -92,7 +92,7 @@ app.get('/api/health', (_req, res) => {
     })
 })
 
-const PORT = process.env.PORT || 3001
+const PORT = 9000
 app.listen(PORT, () => {
     console.log(`语音转写服务运行在 http://localhost:${PORT}`)
     console.log(`引擎: Vosk 本地模型 (vosk-model-small-cn-0.22)`)
