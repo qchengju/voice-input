@@ -30,7 +30,10 @@
                 <button class="btn btn-primary" id="recordBtn" title="录音并转文字">🎧 录音转文字</button>
             </div>
             <div class="action-buttons">
-                <span style="font-size: 0.7rem; color:#6c7fa0;">⚡ 零成本 · 隐私本地化</span>
+                <span class="backend-status" id="backendStatus" title="后端转写服务状态">
+                    <span class="backend-dot" id="backendDot"></span>
+                    <span id="backendLabel">检查中...</span>
+                </span>
             </div>
         </div>
 
@@ -43,6 +46,7 @@
                 <span class="status-led"></span>
                 <span id="statusText">空闲，点击麦克风开始</span>
             </div>
+            <div class="recording-timer" id="recordingTimer">00:00</div>
         </div>
 
         <!-- 录音回放区 -->
@@ -51,6 +55,7 @@
             <audio id="recordedAudio" controls></audio>
             <div class="record-actions">
                 <button class="btn" id="downloadAudioBtn" disabled>⬇️ 下载录音</button>
+                <button class="btn btn-retry" id="retryTranscribeBtn" style="display:none;">🔄 重新转写</button>
             </div>
         </div>
 
@@ -62,10 +67,16 @@
             </div>
             <div class="interim-text" id="interimText"></div>
         </div>
+        <div class="transcribe-progress" id="transcribeProgress" style="display:none;">
+            <div class="progress-bar-track">
+                <div class="progress-bar-fill" id="progressBarFill"></div>
+            </div>
+            <div class="progress-label" id="progressLabel">正在上传...</div>
+        </div>
         <div id="compatWarning" class="compatibility-warning" style="display: none;"></div>
     </div>
 
-    <script src="./app.js"></script>
+    <script type="module" src="./app.mjs" ></script>
 </body>
 
 </html>
