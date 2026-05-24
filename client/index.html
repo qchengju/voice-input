@@ -18,7 +18,7 @@
 
         <!-- 文本域：模拟输入法的上屏区域，用户可直接编辑 -->
         <div class="text-editor">
-            <textarea id="mainTextarea" placeholder="点击下方麦克风开始语音输入，识别文字将自动添加到此处，您也可以手动修改或复制内容。轻松提高输入效率！"></textarea>
+            <textarea id="mainTextarea" placeholder="点击「录音转文字」开始语音输入，识别文字将自动添加到此处。"></textarea>
         </div>
 
         <!-- 工具栏：复制/清空/辅助功能 -->
@@ -39,12 +39,9 @@
 
         <!-- 核心语音交互区 -->
         <div class="voice-zone" id="voiceZone">
-            <div class="mic-button" id="micBtn">
-                <div class="mic-icon">🎤</div>
-            </div>
             <div class="status-badge" id="statusBadge">
                 <span class="status-led"></span>
-                <span id="statusText">空闲，点击麦克风开始</span>
+                <span id="statusText">空闲，点击录音按钮开始</span>
             </div>
             <div class="recording-timer" id="recordingTimer">00:00</div>
         </div>
@@ -73,7 +70,6 @@
             </div>
             <div class="progress-label" id="progressLabel">正在上传...</div>
         </div>
-        <div id="compatWarning" class="compatibility-warning" style="display: none;"></div>
     </div>
 
     <script type="module" src="./app.mjs" ></script>

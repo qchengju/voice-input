@@ -210,56 +210,6 @@ textarea::placeholder {
     cursor: not-allowed;
 }
 
-.mic-button {
-    background: linear-gradient(145deg, #ffffff, #f3f9ff);
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    transition: all 0.15s linear;
-    border: 1px solid #cfdef5;
-}
-
-.mic-button:active {
-    transform: scale(0.96);
-}
-
-.mic-icon {
-    font-size: 52px;
-    transition: transform 0.2s;
-}
-
-/* 录音中动态 */
-.listening-active .mic-button {
-    background: radial-gradient(circle at 30% 20%, #ffd966, #ffaa33);
-    box-shadow: 0 0 0 8px rgba(255, 170, 51, 0.3);
-    border-color: #ffb347;
-}
-
-.listening-active .mic-icon {
-    animation: pulseMic 1.2s infinite;
-    color: #a34100;
-}
-
-@keyframes pulseMic {
-    0% {
-        transform: scale(1);
-        text-shadow: 0 0 0 rgba(255, 100, 0, 0);
-    }
-
-    50% {
-        transform: scale(1.08);
-        text-shadow: 0 0 5px #ff9f4a;
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
 
 .status-badge {
     margin-top: 16px;
@@ -280,24 +230,6 @@ textarea::placeholder {
     border-radius: 10px;
     background: #6b7280;
     display: inline-block;
-}
-
-.listening-active .status-led {
-    background: #f97316;
-    box-shadow: 0 0 6px #f97316;
-    animation: blink 1s infinite;
-}
-
-@keyframes blink {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.4;
-    }
 }
 
 /* 实时中间识别区 - 极大提升易用性 */
@@ -335,17 +267,6 @@ textarea::placeholder {
     color: #8a99b9;
     font-weight: normal;
 }
-
-.compatibility-warning {
-    background: #fff7e5;
-    border-radius: 20px;
-    padding: 10px 16px;
-    margin-top: 16px;
-    font-size: 0.8rem;
-    color: #b45f06;
-    text-align: center;
-}
-
 /* 后端服务状态指示器 */
 .backend-status {
     font-size: 0.72rem;
@@ -455,14 +376,5 @@ textarea::placeholder {
     textarea {
         min-height: 170px;
         font-size: 1rem;
-    }
-
-    .mic-button {
-        width: 80px;
-        height: 80px;
-    }
-
-    .mic-icon {
-        font-size: 42px;
     }
 }
