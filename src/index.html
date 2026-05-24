@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>智能语音输入法 - 说话即输入，效率倍增</title>
+    <title>语音输入法</title>
     <link rel="stylesheet" href="style.css">
     </link>
 </head>
@@ -12,7 +12,7 @@
 <body>
     <div class="voice-input-method" id="app">
         <div class="product-header">
-            <h1>智能语音输入法</h1>
+            <h1>语音输入法</h1>
             <div class="sub">说话即文字 · 连续听写 · 专注高效</div>
         </div>
 
@@ -27,6 +27,7 @@
                 <button class="btn" id="copyBtn" title="复制全部文本">📋 复制文本</button>
                 <button class="btn btn-danger" id="clearBtn" title="清空文本框">🗑️ 清空</button>
                 <button class="btn" id="insertSampleBtn" title="插入示例文本">📄 示例</button>
+                <button class="btn btn-primary" id="recordBtn" title="录音并转文字">🎧 录音转文字</button>
             </div>
             <div class="action-buttons">
                 <span style="font-size: 0.7rem; color:#6c7fa0;">⚡ 零成本 · 隐私本地化</span>
@@ -44,6 +45,15 @@
             </div>
         </div>
 
+        <!-- 录音回放区 -->
+        <div class="record-panel">
+            <div class="record-label">录音回放</div>
+            <audio id="recordedAudio" controls></audio>
+            <div class="record-actions">
+                <button class="btn" id="downloadAudioBtn" disabled>⬇️ 下载录音</button>
+            </div>
+        </div>
+
         <!-- 实时中间识别结果 (提升准确度感知，用户可看到正在识别的临时语句) -->
         <div class="interim-box">
             <div class="interim-label">
@@ -52,15 +62,10 @@
             </div>
             <div class="interim-text" id="interimText"></div>
         </div>
-
-        <div class="info-note">
-            💡 提示：基于浏览器Web Speech API，支持普通话/中英文混合，<strong>连续听写模式</strong> – 无需反复点击，自动追加识别结果。<br>
-            ✅ 准确度平衡：使用系统级语音引擎，零成本；识别后支持手动校正，易用性优先。建议使用Chrome/Edge/ Safari 获得最佳体验。
-        </div>
         <div id="compatWarning" class="compatibility-warning" style="display: none;"></div>
     </div>
 
-    <script src="app.js"></script>
+    <script src="./app.js"></script>
 </body>
 
 </html>

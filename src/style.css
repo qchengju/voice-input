@@ -48,13 +48,6 @@ body {
     gap: 12px;
 }
 
-.product-header h1::before {
-    content: "🎙️";
-    font-size: 2rem;
-    background: none;
-    -webkit-background-clip: unset;
-    color: #2c3e8f;
-}
 
 .sub {
     color: #5b6e8c;
@@ -183,6 +176,40 @@ textarea::placeholder {
     border: 1px solid #e9eff6;
 }
 
+.record-panel {
+    margin: 0 0 22px;
+    padding: 18px 20px;
+    background: #f6fbff;
+    border: 1px solid #dfe9f5;
+    border-radius: 24px;
+}
+
+.record-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #32406b;
+}
+
+.record-panel audio {
+    width: 100%;
+    margin-top: 12px;
+    border-radius: 16px;
+    outline: none;
+    background: #fff;
+}
+
+.record-actions {
+    margin-top: 14px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.record-actions .btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
 .mic-button {
     background: linear-gradient(145deg, #ffffff, #f3f9ff);
     width: 100px;
@@ -307,15 +334,6 @@ textarea::placeholder {
     content: "点击🎙️开始说话，实时显示识别中内容...";
     color: #8a99b9;
     font-weight: normal;
-}
-
-.info-note {
-    text-align: center;
-    font-size: 0.7rem;
-    color: #8596b5;
-    margin-top: 25px;
-    border-top: 1px solid #eef2f8;
-    padding-top: 18px;
 }
 
 .compatibility-warning {
