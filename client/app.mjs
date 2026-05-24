@@ -178,7 +178,7 @@ async function uploadAndTranscribe(blob) {
         } else {
             console.error('上传/转写失败', err)
             const msg = err.message.includes('Failed to fetch')
-                ? '❌ 上传失败，后端服务未启动（http://localhost:3001）'
+                ? '❌ 上传失败，后端服务未启动（http://localhost:9001）'
                 : `❌ ${err.message}`
             setStatus(msg)
             setInterimText(err.message || '转写失败，请重试')

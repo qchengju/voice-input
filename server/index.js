@@ -3,7 +3,6 @@ import multer from 'multer'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import { writeFile, unlink, mkdir } from 'fs/promises'
-import { spawn } from 'child_process'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 
@@ -16,35 +15,20 @@ const upload = multer({ storage: multer.memoryStorage() })
 app.use(cors())
 app.use(express.json())
 
-function runTranscribe(audioPath) {
-    return new Promise((resolve, reject) => {
-        const scriptPath = join(__dirname, 'transcribe.py')
-        const proc = spawn('python3', [scriptPath, audioPath], {
-            timeout: 60000,
-        })
+const TRANSCRIBE_SERVER = 'http://127.0.0.1:9002'
 
-        let stdout = ''
-        let stderr = ''
-
-        proc.stdout.on('data', data => { stdout += data.toString() })
-        proc.stderr.on('data', data => { stderr += data.toString() })
-
-        proc.on('close', code => {
-            if (code !== 0) {
-                return reject(new Error(`转写进程退出码 ${code}: ${stderr}`))
-            }
-            try {
-                const result = JSON.parse(stdout)
-                resolve(result)
-            } catch (e) {
-                reject(new Error(`解析结果失败: ${stdout}`))
-            }
-        })
-
-        proc.on('error', err => {
-            reject(new Error(`启动转写进程失败: ${err.message}`))
-        })
+async function runTranscribe(audioPath) {
+    const response = await fetch(`${TRANSCRIBE_SERVER}/transcribe`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ audio_path: audioPath }),
+        signal: AbortSignal.timeout(60000),
     })
+    if (!response.ok) {
+        const data = await response.json().catch(() => ({}))
+        throw new Error(data.error || `转录服务返回 ${response.status}`)
+    }
+    return response.json()
 }
 
 app.post('/api/transcribe', upload.single('audio'), async (req, res) => {
@@ -84,16 +68,28 @@ app.post('/api/transcribe', upload.single('audio'), async (req, res) => {
     }
 })
 
-app.get('/api/health', (_req, res) => {
-    res.json({
-        status: 'ok',
-        engine: 'vosk-local',
-        model: 'vosk-model-small-cn-0.22',
-    })
+app.get('/api/health', async (_req, res) => {
+    try {
+        const resp = await fetch(`${TRANSCRIBE_SERVER}/health`, {
+            signal: AbortSignal.timeout(3000),
+        })
+        const data = await resp.json()
+        res.json({
+            status: 'ok',
+            engine: 'vosk-local',
+            models: data.models,
+        })
+    } catch {
+        res.json({
+            status: 'error',
+            engine: 'vosk-local',
+            error: '转录服务未就绪',
+        })
+    }
 })
 
 const PORT = 9001
 app.listen(PORT, () => {
     console.log(`语音转写服务运行在 http://localhost:${PORT}`)
-    console.log(`引擎: Vosk 本地模型 (vosk-model-small-cn-0.22)`)
+    console.log(`引擎: Vosk 本地模型 (中文 + 英文)`)
 })
