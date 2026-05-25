@@ -11,6 +11,7 @@ EN_MODEL_URL="https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zi
 FE_PORT=9000
 BE_PORT=9001
 TSC_PORT=9002
+export FE_PORT BE_PORT TSC_PORT
 
 RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; CYAN='\033[0;36m'; NC='\033[0m'
 info()  { echo -e "${GREEN}[INFO]${NC}  $1"; }
@@ -169,7 +170,7 @@ echo ""
 echo -e "${GREEN}╔══════════════════════════════════════╗${NC}"
 echo -e "${GREEN}║       语音输入法 启动完成           ║${NC}"
 echo -e "${GREEN}╠══════════════════════════════════════╣${NC}"
-echo -e "${GREEN}║${NC}  前端页面:    ${CYAN}http://localhost:$FE_PORT${NC}      ${GREEN}║${NC}"
+echo -e "${GREEN}║${NC}  前端页面:    ${CYAN}http://localhost:$FE_PORT?apiPort=$BE_PORT${NC}      ${GREEN}║${NC}"
 echo -e "${GREEN}║${NC}  后端转写:    ${CYAN}http://localhost:$BE_PORT${NC}      ${GREEN}║${NC}"
 echo -e "${GREEN}║${NC}  转录引擎:    ${CYAN}http://localhost:$TSC_PORT${NC}      ${GREEN}║${NC}"
 echo -e "${GREEN}║${NC}  转写引擎:    ${YELLOW}Vosk (CN + EN)${NC}         ${GREEN}║${NC}"

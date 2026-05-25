@@ -139,10 +139,11 @@ def create_app():
 
 
 if __name__ == '__main__':
+    port = int(os.environ.get('TSC_PORT', '9002'))
     log.info("正在加载 Vosk 模型...")
     load_models()
-    log.info("模型加载完成，启动服务 (端口 9002)")
+    log.info("模型加载完成，启动服务 (端口 %d)", port)
 
     app = create_app()
-    app.run(host='127.0.0.1', port=9002, debug=False)
+    app.run(host='127.0.0.1', port=port, debug=False)
 

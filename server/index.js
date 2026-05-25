@@ -1,12 +1,9 @@
 import express from 'express'
 import multer from 'multer'
 import cors from 'cors'
-import dotenv from 'dotenv'
 import { writeFile, unlink, mkdir } from 'fs/promises'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
-
-dotenv.config()
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const app = express()
@@ -15,7 +12,8 @@ const upload = multer({ storage: multer.memoryStorage() })
 app.use(cors())
 app.use(express.json())
 
-const TRANSCRIBE_SERVER = 'http://127.0.0.1:9002'
+const TSC_PORT = process.env.TSC_PORT || 9002
+const TRANSCRIBE_SERVER = `http://127.0.0.1:${TSC_PORT}`
 
 async function runTranscribe(audioPath, lang) {
     const response = await fetch(`${TRANSCRIBE_SERVER}/transcribe`, {
@@ -89,7 +87,7 @@ app.get('/api/health', async (_req, res) => {
     }
 })
 
-const PORT = 9001
+const PORT = process.env.BE_PORT || 9001
 app.listen(PORT, () => {
     console.log(`语音转写服务运行在 http://localhost:${PORT}`)
     console.log(`引擎: Vosk 本地模型 (中文 + 英文)`)

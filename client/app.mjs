@@ -10,7 +10,7 @@ const {
     langSelector, langOptions,
 } = doms
 
-const API_BASE = 'http://localhost:9001'
+const API_BASE = `http://localhost:${new URLSearchParams(location.search).get('apiPort') || '9001'}`
 
 // ---------- 全局状态 ----------
 let mediaRecorder = null
@@ -182,8 +182,8 @@ async function uploadAndTranscribe(blob) {
         } else {
             console.error('上传/转写失败', err)
             const msg = err.message.includes('Failed to fetch')
-                ? '❌ 上传失败，后端服务未启动（http://localhost:9001）'
-                : `❌ ${err.message}`
+                ? '上传失败，后端服务未启动（http://localhost:9001）'
+                : `${err.message}`
             setStatus(msg)
             setInterimText(err.message || '转写失败，请重试')
             retryTranscribeBtn.style.display = 'inline-flex'
